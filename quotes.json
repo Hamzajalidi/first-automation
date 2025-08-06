@@ -1,0 +1,104 @@
+{
+  "name": "quotes",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        -60
+      ],
+      "id": "ce46feb4-bb9c-460d-a612-d627fd3b751f",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://zenquotes.io/api/random",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        340,
+        -60
+      ],
+      "id": "6face661-7661-4131-a104-606ecf678aee",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "-1002579809796",
+        "text": "={{ $json.q }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        -60
+      ],
+      "id": "4eee5c3f-62d2-4cda-9c33-309d87a6d161",
+      "name": "Send a text message",
+      "webhookId": "e11d0c3f-a63c-4958-8d3d-9276e8e39d1e",
+      "credentials": {
+        "telegramApi": {
+          "id": "rZYcnheGjUz6K5XS",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "35fb6cf9-1000-4307-bbed-a39727daa837",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "41ee81518ba41e7f4c96145ccf649cc7b4f5430a757c91e53f5577107c9853ad"
+  },
+  "id": "KUZotcwNTxO1Zgkj",
+  "tags": []
+}
